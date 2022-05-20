@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
@@ -28,7 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories=Category::All();
+
+        return view('post.create', compact('categories'));
     }
 
     /**

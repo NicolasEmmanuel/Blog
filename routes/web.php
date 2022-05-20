@@ -16,11 +16,16 @@ use App\Http\Controllers\PostController;
 
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
-Route::resource('posts', PostController::class)->except('index');
 
+/*"middleware"= court-circuite une requête utilisateur/avant exécution de contrôleur, nous pouvons effectuer des tests et rediriger si nécessaire l'utilisateur. */
+Route::middleware(['auth'])->group(function (){ 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    Route::resource('posts', PostController::class)->except('index');
+    
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+                })->name('dashboard');
+});
+
 
 require __DIR__.'/auth.php';
